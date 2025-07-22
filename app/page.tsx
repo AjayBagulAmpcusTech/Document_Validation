@@ -590,7 +590,7 @@ export default function DocuVerifyPro() {
   }, [selectedDocument]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
       <header className="bg-white border-b border-slate-200 shadow-sm">
         <div className="container mx-auto px-4 py-4">
@@ -615,8 +615,8 @@ export default function DocuVerifyPro() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 min-h-[calc(100vh-200px)]">
+      <div className="container mx-auto px-4 py-8 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 min-h-[calc(100vh-200px)] h-full">
           {/* Left Sidebar */}
           <div className="lg:col-span-1">
             <Card className="h-fit lg:sticky lg:top-8">
