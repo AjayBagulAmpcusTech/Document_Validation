@@ -587,6 +587,10 @@ export default function DocuVerifyPro() {
   useEffect(() => {
     fieldRefs.current = {};
     setUploadedImage(null);
+    // Scroll the form area to top when document type changes
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [selectedDocument]);
 
   return (
