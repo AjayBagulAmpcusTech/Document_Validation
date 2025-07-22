@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Scrollbar Styles */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-slate-100 rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper spacing and alignment */
+.grid-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+}
+
+/* Form Field Alignment Utilities */
+@layer utilities {
+  .form-field-container {
+    @apply flex flex-col h-full;
+  }
+
+  .form-input-base {
+    @apply w-full text-base transition-all duration-200 border-2 rounded-lg;
+  }
+
+  .form-input-normal {
+    @apply form-input-base p-4 h-14;
+  }
+
+  .form-input-textarea {
+    @apply form-input-base p-4 min-h-[120px] resize-none;
+  }
+
+  .form-input-valid {
+    @apply bg-green-50 border-green-300;
+  }
+
+  .form-input-error {
+    @apply border-red-500 focus:border-red-500 ring-red-200;
+  }
+
+  .form-input-default {
+    @apply border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200;
+  }
+
+  .form-label {
+    @apply text-base font-semibold mb-3 block text-slate-900;
+  }
+
+  .form-error {
+    @apply mt-3 w-full;
+  }
+
+  .form-suggestion {
+    @apply mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg;
+  }
+
+  .form-character-count {
+    @apply flex justify-end mt-2 text-xs text-slate-500;
+  }
+}
+
+/* Ensure consistent spacing for form elements in grid */
+.grid > div {
+  @apply flex flex-col;
+}
+
+/* Fix input field focus states */
+input:focus,
+textarea:focus {
+  @apply outline-none ring-2 ring-opacity-50;
+}
+
+/* Ensure proper alignment for date inputs */
+input[type="date"] {
+  @apply appearance-none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  @apply opacity-0 absolute right-3 cursor-pointer;
+}
+
+/* Grid alignment fixes */
+@layer utilities {
+  .grid-field-alignment {
+    @apply flex flex-col justify-start items-stretch h-full;
+  }
+
+  .grid-field-content {
+    @apply flex-1 flex flex-col;
+  }
+
+  .grid-field-input {
+    @apply w-full;
+  }
+}
