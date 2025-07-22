@@ -5,7 +5,7 @@ interface PANCardProps {
 }
 
 const PANCard: React.FC<PANCardProps> = ({ formData }) => {
-  console.log('formData: ', formData);
+  console.log("formData: ", formData);
   return (
     <div className="w-full max-w-lg mx-auto">
       {/* PAN Card */}
@@ -20,7 +20,7 @@ const PANCard: React.FC<PANCardProps> = ({ formData }) => {
         {/* Header Section */}
         <div className="flex justify-between items-start p-4 pb-2">
           {/* Left Header */}
-          <div className="flex-1 text-center bg-white">
+          <div className="flex-1 text-center">
             <div className="text-black font-bold text-sm leading-tight bg">
               आयकर विभाग
             </div>
@@ -32,7 +32,7 @@ const PANCard: React.FC<PANCardProps> = ({ formData }) => {
           </div>
 
           {/* Government Emblem */}
-          <div className="mx-4 flex flex-col items-center bg-white">
+          <div className="mx-4 flex flex-col items-center">
             <div className="w-12 h-12">
               <img
                 src="/satyamev-jayate.jpg"
@@ -45,7 +45,7 @@ const PANCard: React.FC<PANCardProps> = ({ formData }) => {
             </div>
 
             {/* Center Text Below Logo */}
-            <div className="mt-3 text-center bg-white">
+            <div className="mt-3 text-center">
               <div className="text-black font-semibold text-sm mb-2">
                 e • Permanent Account Number Card
               </div>
