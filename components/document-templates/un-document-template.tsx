@@ -57,7 +57,7 @@ const UnDocumentTemplate = ({ formData }: { formData: UnDocumentData }) => {
       {/* Photo and QR */}
       <div className="grid grid-cols-3 gap-4 items-center mb-4">
         <div className="text-center">
-          <div className="w-20 h-24 bg-gray-300 mx-auto mb-1" />
+          <img src="/FD.jpg" alt="Barcode" className="w-36 h-40" />
           <div className="text-xs">फोटो / Photo</div>
         </div>
         <div className="text-center">
@@ -65,11 +65,7 @@ const UnDocumentTemplate = ({ formData }: { formData: UnDocumentData }) => {
           <div className="text-xs">हस्ताक्षर / Signature</div>
         </div>
         <div>
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=example"
-            alt="QR Code"
-            className="w-24 h-24 mx-auto"
-          />
+          <img src="/adhar-barcode.png" alt="Barcode" className="w-36 h-40 " />
         </div>
       </div>
 

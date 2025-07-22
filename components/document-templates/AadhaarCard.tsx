@@ -49,8 +49,12 @@ const AadhaarCard: React.FC<AadhaarCardProps> = ({ formData }) => {
           <div className="flex items-start justify-between">
             {/* Left Section - Photo */}
             <div className="flex-shrink-0">
-              <div className="w-32 h-40 bg-gray-200 border-2 border-gray-400 rounded flex items-center justify-center">
-                <span className="text-sm text-gray-500 text-center">Photo</span>
+              <div className="w-36 h-40 flex items-center justify-center">
+                <img
+                  src="/FD.jpg"
+                  alt="Barcode"
+                  className="w-36 h-40"
+                />
               </div>
             </div>
 

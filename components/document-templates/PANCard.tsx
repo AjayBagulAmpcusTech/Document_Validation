@@ -5,6 +5,7 @@ interface PANCardProps {
 }
 
 const PANCard: React.FC<PANCardProps> = ({ formData }) => {
+  console.log('formData: ', formData);
   return (
     <div className="w-full max-w-lg mx-auto">
       {/* PAN Card */}
@@ -97,7 +98,9 @@ const PANCard: React.FC<PANCardProps> = ({ formData }) => {
                     <div className="text-blue-900 font-semibold text-xs">
                       जन्म की तारीख / Date of Birth
                     </div>
-                    <div className="text-black font-bold">{formData.dob}</div>
+                    <div className="text-black font-bold">
+                      {formData.dateOfBirth}
+                    </div>
                   </div>
 
                   {/* Signature Area */}
