@@ -1,7 +1,7 @@
 import React from "react";
 
 const Passport: React.FC<any> = ({ formData }) => {
-  console.log('formData: ', formData);
+  console.log("formData: ", formData);
   return (
     <div className="w-full max-w-2xl mx-auto">
       {/* Passport Page */}
@@ -51,7 +51,7 @@ const Passport: React.FC<any> = ({ formData }) => {
                 <img
                   src="/FD.jpg"
                   alt="Barcode"
-                  className="w-48 h-48 object-contain border border-gray-400 bg-white rounded"
+                  className="w-30 h-30 object-contain border border-gray-400 bg-white rounded"
                 />
               </div>
 

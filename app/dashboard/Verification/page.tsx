@@ -37,15 +37,14 @@ import {
 import React from "react";
 import type { JSX } from "react";
 import { PassportTemplate } from "@/components/document-templates/passport-template";
-import { EducationTemplate } from "@/components/document-templates/education-template";
-import { UnDocumentTemplate } from "@/components/document-templates/un-document-template";
 import { DigitalEPanTemplate } from "@/components/document-templates/digital-epan-template";
 import { EAadhaarTemplate } from "@/components/document-templates/e-aadhaar-template";
 import AadhaarCard from "@/components/document-templates/AadhaarCard";
 import PANCard from "@/components/document-templates/PANCard";
-import DocumentVerification from "@/components/DocumentVerification";
 import Passport from "@/components/document-templates/Passport";
 import Link from "next/link";
+import UANEmployeeDetails from "@/components/document-templates/un-document-template";
+import EducationVerification from "@/components/document-templates/education-template";
 
 type DocumentType = "aadhaar" | "pan" | "passport" | "education" | "un";
 
@@ -1117,10 +1116,10 @@ function Verification() {
                             <PassportTemplate formData={formData} />
                           )}
                           {selectedDocument === "education" && (
-                            <EducationTemplate formData={formData} />
+                            <EducationVerification formData={formData} />
                           )}
                           {selectedDocument === "un" && (
-                            <UnDocumentTemplate formData={formData} />
+                            <UANEmployeeDetails formData={formData} />
                           )}
                         </div>
                       )}
@@ -1167,13 +1166,13 @@ function Verification() {
                                       return <Passport formData={formData} />;
                                     case "education":
                                       return (
-                                        <EducationTemplate
+                                        <EducationVerification
                                           formData={formData}
                                         />
                                       );
                                     case "un":
                                       return (
-                                        <UnDocumentTemplate
+                                        <UANEmployeeDetails
                                           formData={formData}
                                         />
                                       );
