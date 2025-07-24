@@ -44,6 +44,7 @@ import UANEmployeeDetails from "@/components/document-templates/un-document-temp
 import EducationVerification from "@/components/document-templates/education-template";
 import NewPANCard from "@/components/document-templates/newPanCard";
 import { EAadhaarTemplate } from "@/components/document-templates/e-aadhaar-template";
+import VerificationDetails from "@/components/verificationDetails/verificationDetails";
 
 type DocumentType = "aadhaar" | "pan" | "passport" | "education" | "un";
 
@@ -1181,49 +1182,10 @@ function Verification() {
                                 })()}
                               </div>
                               <div>
-                                {/* Add this line wherever you want the DocumentVerification to appear */}
-                                <Card>
-                                  <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                      <FileText className="h-5 w-5" />
-                                      Verification Details
-                                    </CardTitle>
-                                  </CardHeader>
-                                  <CardContent className="space-y-4">
-                                    <div className="space-y-3">
-                                      <div className="flex justify-between items-center">
-                                        <span className="text-sm font-medium text-gray-600">
-                                          Status:
-                                        </span>
-                                        <Badge className="bg-green-100 text-green-800">
-                                          Verified
-                                        </Badge>
-                                      </div>
-
-                                      <Separator />
-
-                                      <div className="space-y-2">
-                                        {currentConfig.fields.map((field) => (
-                                          <div
-                                            className="flex justify-between"
-                                            key={field.name}
-                                          >
-                                            <span className="text-sm font-medium text-gray-600">
-                                              {field.label}:
-                                            </span>
-                                            <span className="text-sm font-semibold">
-                                              {formData[field.name] || "-"}
-                                            </span>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    <Separator />
-                                  </CardContent>
-                                </Card>
-
-                                {/* ...rest of your existing code... */}
+                                <VerificationDetails
+                                  formData={formData}
+                                  currentConfig={currentConfig}
+                                />
                               </div>
                             </div>
                           </div>
