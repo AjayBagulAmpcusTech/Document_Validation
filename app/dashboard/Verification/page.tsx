@@ -37,15 +37,13 @@ import {
 import React from "react";
 import type { JSX } from "react";
 import { PassportTemplate } from "@/components/document-templates/passport-template";
-import { DigitalEPanTemplate } from "@/components/document-templates/digital-epan-template";
-import { EAadhaarTemplate } from "@/components/document-templates/e-aadhaar-template";
 import AadhaarCard from "@/components/document-templates/AadhaarCard";
-import PANCard from "@/components/document-templates/PANCard";
 import Passport from "@/components/document-templates/Passport";
 import Link from "next/link";
 import UANEmployeeDetails from "@/components/document-templates/un-document-template";
 import EducationVerification from "@/components/document-templates/education-template";
 import NewPANCard from "@/components/document-templates/newPanCard";
+import { EAadhaarTemplate } from "@/components/document-templates/e-aadhaar-template";
 
 type DocumentType = "aadhaar" | "pan" | "passport" | "education" | "un";
 
@@ -452,17 +450,16 @@ const validateForm = (
   return { isValid, errors: newErrors };
 };
 function Verification() {
-  const [selectedDocument, setSelectedDocument] =
-    useState<DocumentType>("pan");
+  const [selectedDocument, setSelectedDocument] = useState<DocumentType>("pan");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState<"form" | "preview" | "result">(
-    "result"
+    "form"
   );
   const [verificationResult, setVerificationResult] = useState<
     "success" | "failed" | null
-  >("success");
+  >(null);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isOCRProcessing, setIsOCRProcessing] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);

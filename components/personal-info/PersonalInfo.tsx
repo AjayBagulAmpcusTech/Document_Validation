@@ -1,6 +1,14 @@
 import React from "react";
-
-export default function PersonalInfo() {
+interface PersonalInfoProps {
+  name?: string;
+  fatherName?: string;
+  dob?: string;
+}
+export default function PersonalInfo({
+  name,
+  fatherName,
+  dob,
+}: PersonalInfoProps) {
   return (
     <div className="!text-nowrap flex-1 pl-1 text-[12px] text-start font-[500]">
       <div
@@ -13,17 +21,17 @@ export default function PersonalInfo() {
       <p className="my-2">
         <strong>नाम / Name</strong>
         <br />
-        APPLICANT NAME
+        {name || "APPLICANT NAME"}
       </p>
       <p className="my-2">
         <strong>पिता का नाम / Father's Name</strong>
         <br />
-        APPLICANT’S FATHER NAME
+        {fatherName || "FATHER'S NAME"}
       </p>
       <p className="my-2">
         <strong>जन्म की तारीख / Date of Birth</strong>
         <br />
-        01/06/1995
+        {dob || "01/06/1995"}
       </p>
     </div>
   );
