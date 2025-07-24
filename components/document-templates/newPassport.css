@@ -1,0 +1,363 @@
+.passport-page {
+  /* No background here */
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.passport-container {
+  width: 600px;
+  height: 400px;
+  background: linear-gradient(
+    120deg,
+    skyblue 0%,
+    lightblue 40%,
+    white 70%,
+    lightpink 100%
+  );
+
+  border: 1px solid #ddd;
+  position: relative;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(240, 240, 240, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(245, 245, 245, 0.2) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 49%,
+      rgba(230, 230, 230, 0.1) 50%,
+      transparent 51%
+    );
+  background-size: 200px 200px, 150px 150px, 20px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #dbedf0, #f0efe6);
+  background-image: url("/passport-bg2.jpg");
+}
+
+/* Header */
+.passport-header {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.country-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Passport Info */
+.passport-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.info-left,
+.info-center,
+.info-right {
+  text-align: center;
+}
+
+.passport-info .label {
+  display: block;
+  color: #666;
+  font-size: 8px;
+}
+
+.passport-info .label-en {
+  display: block;
+  color: #666;
+  font-size: 8px;
+}
+
+.passport-info .value {
+  font-weight: bold;
+  color: #000;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.passport-no {
+  color: #000;
+  font-size: 11px;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+/* Left Section */
+.left-section {
+  flex: 0 0 110px;
+}
+
+.photo-area {
+  width: 100px;
+  height: 125px;
+  border: 1px solid #000;
+  overflow: hidden;
+  position: absolute;
+  top: 10;
+  left: 10;
+}
+
+.passport-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 0%;
+}
+
+.signature-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.signature-wrapper::before {
+  content: "⌞";
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.signature-wrapper::after {
+  content: "⌟";
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.signature-area {
+  min-height: 80px;
+  min-width: 180px;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.signature-area::before {
+  content: "⌜";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.signature-area::after {
+  content: "⌝";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.signature {
+  font-size: 14px;
+  color: #000;
+  position: relative;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  width: 80px;
+  text-align: center;
+  margin-top: 10px; /* separate from top angles */
+}
+
+.signature::before {
+  content: "⌞";
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.signature::after {
+  content: "⌟";
+  position: absolute;
+  bottom: -25px;
+  right: -25px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Right Section */
+.right-section {
+  flex: 1;
+  position: relative;
+}
+
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+detail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 10px;
+}
+
+.detail-row .nationality {
+  flex: 2;
+}
+
+.detail-row .sex {
+  flex: 0.5;
+}
+
+.detail-row .dob {
+  flex: 1.2;
+}
+
+.detail-row.dates .issue-date,
+.detail-row.dates .expiry-date {
+  flex: 1;
+}
+
+.field-label {
+  display: flex;
+  gap: 4px;
+  font-size: 7px;
+  color: #666;
+}
+
+.field-label .hindi {
+  color: #666;
+}
+
+.field-label .english {
+  color: #666;
+}
+
+.field-value {
+  font-size: 9px;
+  color: #000;
+  font-weight: bold;
+  margin: 1px 0;
+}
+
+.field-line {
+  height: 1px;
+  background: #000;
+  width: 100%;
+}
+
+/* Machine Readable Zone */
+.mrz-section {
+  border-top: 1px solid #000;
+  padding-top: 6px;
+  margin-top: 8px;
+}
+
+.mrz-line {
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  color: #000;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+  word-break: break-all;
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  font-size: 7px;
+  color: #999;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .passport-container {
+    width: 95vw;
+    height: auto;
+    min-height: 350px;
+    border-radius: 10px;
+    padding: 12px;
+    background: linear-gradient(
+      120deg,
+      skyblue 0%,
+      lightblue 40%,
+      white 70%,
+      lightpink 100%
+    );
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-image: radial-gradient(
+        circle at 20% 20%,
+        rgba(240, 240, 240, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(245, 245, 245, 0.2) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        45deg,
+        transparent 49%,
+        rgba(230, 230, 230, 0.1) 50%,
+        transparent 51%
+      );
+    background-size: 200px 200px, 150px 150px, 20px 20px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .left-section {
+    flex: none;
+    align-self: center;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

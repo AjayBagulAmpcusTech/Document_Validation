@@ -37,14 +37,14 @@ import {
 import React from "react";
 import type { JSX } from "react";
 import { PassportTemplate } from "@/components/document-templates/passport-template";
-import AadhaarCard from "@/components/document-templates/AadhaarCard";
-import Passport from "@/components/document-templates/Passport";
 import Link from "next/link";
 import UANEmployeeDetails from "@/components/document-templates/un-document-template";
 import EducationVerification from "@/components/document-templates/education-template";
 import NewPANCard from "@/components/document-templates/newPanCard";
 import { EAadhaarTemplate } from "@/components/document-templates/e-aadhaar-template";
 import VerificationDetails from "@/components/verificationDetails/verificationDetails";
+import NewAadhaarCard from "@/components/document-templates/NewAadhaarCard";
+import NewPassport from "@/components/document-templates/NewPassport";
 
 type DocumentType = "aadhaar" | "pan" | "passport" | "education" | "un";
 
@@ -1158,12 +1158,12 @@ function Verification() {
                                   switch (selectedDocument) {
                                     case "aadhaar":
                                       return (
-                                        <AadhaarCard formData={formData} />
+                                        <NewAadhaarCard formData={formData} />
                                       );
                                     case "pan":
                                       return <NewPANCard formData={formData} />;
                                     case "passport":
-                                      return <Passport formData={formData} />;
+                                      return <NewPassport formData={formData} />;
                                     case "education":
                                       return (
                                         <EducationVerification
