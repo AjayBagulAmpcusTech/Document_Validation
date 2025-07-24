@@ -45,6 +45,7 @@ import Passport from "@/components/document-templates/Passport";
 import Link from "next/link";
 import UANEmployeeDetails from "@/components/document-templates/un-document-template";
 import EducationVerification from "@/components/document-templates/education-template";
+import NewPANCard from "@/components/document-templates/newPanCard";
 
 type DocumentType = "aadhaar" | "pan" | "passport" | "education" | "un";
 
@@ -452,16 +453,16 @@ const validateForm = (
 };
 function Verification() {
   const [selectedDocument, setSelectedDocument] =
-    useState<DocumentType>("aadhaar");
+    useState<DocumentType>("pan");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState<"form" | "preview" | "result">(
-    "form"
+    "result"
   );
   const [verificationResult, setVerificationResult] = useState<
     "success" | "failed" | null
-  >(null);
+  >("success");
   const [isVerifying, setIsVerifying] = useState(false);
   const [isOCRProcessing, setIsOCRProcessing] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -1110,7 +1111,7 @@ function Verification() {
                             <EAadhaarTemplate formData={formData} />
                           )}
                           {selectedDocument === "pan" && (
-                            <DigitalEPanTemplate formData={formData} />
+                            <NewPANCard formData={formData} />
                           )}
                           {selectedDocument === "passport" && (
                             <PassportTemplate formData={formData} />
@@ -1161,7 +1162,7 @@ function Verification() {
                                         <AadhaarCard formData={formData} />
                                       );
                                     case "pan":
-                                      return <PANCard formData={formData} />;
+                                      return <NewPANCard formData={formData} />;
                                     case "passport":
                                       return <Passport formData={formData} />;
                                     case "education":
