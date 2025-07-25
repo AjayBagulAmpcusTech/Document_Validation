@@ -1,7 +1,16 @@
 import Image from "next/image";
 import React from "react";
 
-export default function RightSideAadhaar() {
+interface RightSideAadhaarProps {
+  formData: any;
+  formatAadhaarNumber: (aadhaar: string) => string;
+}
+
+export default function RightSideAadhaar({
+  formData,
+  formatAadhaarNumber,
+}: RightSideAadhaarProps) {
+  let data = formData?.formData || {};
   return (
     <>
       {/* Right Side */}
@@ -34,29 +43,27 @@ export default function RightSideAadhaar() {
         </div>
 
         {/* Address */}
-        <div className="text-sm leading-relaxed w-[290px]">
+        <div className="text-sm text-start leading-relaxed w-[50%] h-auto pt-4">
           <p>
             <strong>पता / Address:</strong>
           </p>
-          <p>
-            123 Street Name,
-            <br />
-            City, State - 000000 lo
-          </p>
+          <p className="text-wrap">123 Street Name, City, State - 000000 lo</p>
         </div>
 
         {/* QR Code */}
         <div className="absolute top-[90px] right-[20px] w-[110px] h-[110px]">
           <Image
-            src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=AADHAAR-XXXX"
+            src="/adhar-barcode.png"
             alt="QR Code"
             width={110}
             height={110}
           />
         </div>
 
-        <div className="text-lg font-bold tracking-wider text-center mt-[84px]">
-          XXXX XXXX XXXX
+        <div className="text-lg font-bold tracking-wider text-center mt-[68px]">
+          {data?.aadhaarNumber
+            ? formatAadhaarNumber(data.aadhaarNumber)
+            : "1254 8595 4856"}
         </div>
         <hr className="border-t-2 border-red-600 my-1" />
 

@@ -28,12 +28,12 @@ const UANEmployeeDetails = (formData: any) => {
 
   const employeeDetails = {
     uan: formData?.uanNumber || "100234567891",
-    name: formData?.fullName || "Ajay Bagul",
+    name: formData?.fullName || "John Doe",
     dob: "1997-06-21",
     gender: "Male",
     aadhaar: "XXXX-XXXX-1234",
     mobile: "+91-9876543210",
-    email: "ajay.bagul@example.com",
+    email: "johnDoe@example.com",
     profileImage: "/placeholder.svg?height=100&width=100",
     status: "Active",
     kycStatus: {
@@ -70,9 +70,7 @@ const UANEmployeeDetails = (formData: any) => {
 
   return (
     <div
-      className={`min-h-screen py-10 px-4 sm:px-10 transition-colors duration-200 ${
-        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
-      }`}
+      className={`min-h-screen py-10 px-4 sm:px-10 transition-colors duration-200 `}
     >
       <div
         className={`max-w-6xl mx-auto ${
@@ -87,29 +85,6 @@ const UANEmployeeDetails = (formData: any) => {
           >
             UAN Employee Details
           </h1>
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleDarkMode}
-              className={darkMode ? "bg-gray-700 hover:bg-gray-600" : ""}
-            >
-              {darkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-            <Badge
-              className={`${
-                employeeDetails.status === "Active"
-                  ? "bg-green-500"
-                  : "bg-red-500"
-              } text-white`}
-            >
-              {employeeDetails.status}
-            </Badge>
-          </div>
         </div>
 
         {/* Profile Summary */}
@@ -130,7 +105,7 @@ const UANEmployeeDetails = (formData: any) => {
                 .join("")}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1">
+          <div className="">
             <h2 className="text-2xl font-bold">{employeeDetails.name}</h2>
             <p
               className={`text-sm ${
@@ -140,7 +115,7 @@ const UANEmployeeDetails = (formData: any) => {
               {employeeDetails.currentJob.designation} at{" "}
               {employeeDetails.currentJob.employerName}
             </p>
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="">
               <div className="flex items-center gap-1">
                 <Mail className="h-4 w-4" />
                 <span className="text-sm">{employeeDetails.email}</span>
@@ -151,7 +126,7 @@ const UANEmployeeDetails = (formData: any) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             <Button
               size="sm"
               variant="outline"
@@ -176,7 +151,7 @@ const UANEmployeeDetails = (formData: any) => {
               <FileEdit className="h-4 w-4" />
               <span>Edit</span>
             </Button>
-          </div>
+          </div> */}
         </div>
 
         {/* KYC Status */}

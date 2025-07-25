@@ -11,7 +11,7 @@ const PanCard = (formData: any) => {
     <div className="flex justify-center items-center min-h-screen p-10 font-sans">
       <div className="w-[630px] h-[400px] bg-gradient-to-br from-[#77CDF4] to-[#CE9ADE] rounded-lg shadow-md text-black p-6 relative">
         <Header />
-        <div className="w-[50%] grid grid-cols-2 gap-2">
+        <div className="w-[50%] grid grid-cols-2 gap-2 text-blue-950">
           <PersonalInfo
             name={formData.formData.fullName}
             fatherName={formData.formData.fatherName}

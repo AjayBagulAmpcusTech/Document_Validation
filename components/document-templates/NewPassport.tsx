@@ -1,6 +1,9 @@
 import "./newPassport.css";
 
 const NewPassport = (formData: any) => {
+  let data = formData?.formData || "";
+  let firstName = data?.fullName?.split(" ")[0] || "";
+  let lastName = data?.fullName?.split(" ")[1] || "";
   return (
     <div className="passport-page">
       <div className="passport-container">
@@ -52,7 +55,7 @@ const NewPassport = (formData: any) => {
                   <span className="hindi">उपनाम</span>
                   <span className="english">Surname</span>
                 </div>
-                <div className="field-value">SHINDE</div>
+                <div className="field-value">{lastName || "SHINDE"}</div>
                 <div className="field-line"></div>
               </div>
 
@@ -61,7 +64,9 @@ const NewPassport = (formData: any) => {
                   <span className="hindi">दिया गया नाम</span>
                   <span className="english">Given Name(s)</span>
                 </div>
-                <div className="field-value">SANDESH RAMDAS</div>
+                <div className="field-value">
+                  {firstName || "SANDESH RAMDAS"}
+                </div>
                 <div className="field-line"></div>
               </div>
 
@@ -87,7 +92,9 @@ const NewPassport = (formData: any) => {
                     <span className="hindi">जन्म तिथि</span>
                     <span className="english">Date of Birth</span>
                   </div>
-                  <div className="field-value">03/06/1990</div>
+                  <div className="field-value">
+                    {data?.dateOfExpiry || "03/06/1990"}
+                  </div>
                   <div className="field-line"></div>
                 </div>
               </div>
@@ -135,7 +142,6 @@ const NewPassport = (formData: any) => {
                   <span className="english">Date of Issue</span>
                 </div>
                 <div className="field-value">31/08/2016</div>
-                <div className="field-line"></div>
               </div>
               <div className="detail-field expiry-date">
                 <div className="field-label">
@@ -143,7 +149,6 @@ const NewPassport = (formData: any) => {
                   <span className="english">Date of Expiry</span>
                 </div>
                 <div className="field-value">30/08/2026</div>
-                <div className="field-line"></div>
               </div>
             </div>
           </div>

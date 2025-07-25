@@ -98,8 +98,7 @@ const documentConfigs: DocumentConfig[] = [
         type: "text",
         required: true,
         placeholder: "As per Aadhaar card",
-        suggestion:
-          "Enter your complete name exactly as printed on your Aadhaar",
+        suggestion: "Please enter your name as per your Aadhaar card",
         example: "Example: Rajesh Kumar Singh",
         minLength: 2,
         maxLength: 50,
@@ -115,6 +114,16 @@ const documentConfigs: DocumentConfig[] = [
         suggestion: "Select your date of birth as mentioned in Aadhaar card",
         example: "Must match Aadhaar records",
         errorMessage: "Please select a valid date of birth",
+      },
+      {
+        name: "gender",
+        label: "Gender(M/F)",
+        type: "text",
+        required: true,
+        placeholder: "M/F",
+        suggestion: "Select your gender as mentioned in Aadhaar card",
+        example: "Must match Aadhaar records",
+        errorMessage: "Please select a valid gender(M/F)",
       },
     ],
   },
@@ -364,6 +373,7 @@ const performOCR = async (
       aadhaarNumber: "987654321098",
       fullName: "PRIYA SHARMA",
       dateOfBirth: "1992-11-22",
+      gender: "F",
     },
     pan: {
       panNumber: "ABCDE1234F",
@@ -451,8 +461,7 @@ const validateForm = (
   return { isValid, errors: newErrors };
 };
 function Verification() {
-  const [selectedDocument, setSelectedDocument] =
-    useState<DocumentType>("aadhaar");
+  const [selectedDocument, setSelectedDocument] = useState<DocumentType>("pan");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
@@ -615,9 +624,9 @@ function Verification() {
   }, [selectedDocument]);
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="h-screen overflow-auto bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 shadow-sm">
+      <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -720,7 +729,7 @@ function Verification() {
                     </CardHeader>
                     <CardContent
                       ref={scrollContainerRef}
-                      className="space-y-10 max-h-[calc(100vh-200px)] overflow-y-auto pr-6 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100 p-8"
+                      className="space-y-6 max-h-[calc(100vh-180px)] overflow-y-auto px-4 md:px-6 lg:px-8 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100"
                     >
                       {/* OCR Upload Section */}
                       <div className="mb-8">
@@ -1137,7 +1146,7 @@ function Verification() {
                   className="h-full"
                 >
                   <Card className="h-fit">
-                    <CardContent className="space-y-8 max-h-[calc(100vh-200px)] overflow-y-auto pr-4 py-8 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100">
+                    <CardContent className="space-y-6 max-h-[calc(120vh-180px)] overflow-y-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100">
                       {verificationResult === "success" ? (
                         <>
                           <div className="bg-green-100 p-8 rounded-full mx-auto w-fit">
@@ -1163,7 +1172,9 @@ function Verification() {
                                     case "pan":
                                       return <NewPANCard formData={formData} />;
                                     case "passport":
-                                      return <NewPassport formData={formData} />;
+                                      return (
+                                        <NewPassport formData={formData} />
+                                      );
                                     case "education":
                                       return (
                                         <EducationVerification

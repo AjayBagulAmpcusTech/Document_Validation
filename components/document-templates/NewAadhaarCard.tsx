@@ -4,6 +4,13 @@ import Info from "./aadhaar/info";
 import RightSideAadhaar from "./aadhaar/rightSideAadhaar";
 
 const NewAadhaarCard = (formData: any) => {
+  function formatAadhaarNumber(aadhaar:any) {
+    // Remove all non-digit characters
+    const digits = aadhaar.replace(/\D/g, "");
+
+    // Format into XXXX XXXX XXXX
+    return digits.replace(/(\d{4})(\d{4})(\d{4})/, "$1 $2 $3");
+  }
   return (
     <div className=" p-5">
       <div className="flex w-[900px] h-[300px] shadow-lg border-2 border-black bg-white">
@@ -17,7 +24,7 @@ const NewAadhaarCard = (formData: any) => {
             {/* Photo Placeholder */}
           </div>
           <div>
-            <Info />
+            <Info formData={formData} />
           </div>
           {/* Note */}
           <div className="text-[7px] bg-gray-100 border border-gray-400 p-1 -mt-2 leading-tight w-[280px] absolute left-[120px] top-[170px]">
@@ -34,7 +41,9 @@ const NewAadhaarCard = (formData: any) => {
           </div>
 
           <div className="text-lg font-bold tracking-wider text-center mt-[25px]">
-            XXXX XXXX XXXX
+            {formData?.formData?.aadhaarNumber
+              ? formatAadhaarNumber(formData.formData.aadhaarNumber)
+              : "1254 8595 4856"}
           </div>
           <hr className="border-t-2 border-red-600 my-1" />
           <div className="text-center font-bold text-base">
@@ -43,7 +52,10 @@ const NewAadhaarCard = (formData: any) => {
         </div>
 
         {/* Right Side */}
-        <RightSideAadhaar />
+        <RightSideAadhaar
+          formData={formData}
+          formatAadhaarNumber={formatAadhaarNumber}
+        />
       </div>
     </div>
   );

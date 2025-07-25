@@ -2,11 +2,10 @@ import React from "react";
 
 export default function Header() {
   return (
-    <div className="flex justify-around font-bold text-[#550000] text-lg">
+    <div className="flex justify-around font-bold text-[#550000] text-lg ">
       <div className="w-[40%] text-nowrap">
-        आयकर विभाग
-        <br />
-        INCOME TAX DEPARTMENT
+        <p className="!font-mangal">आयकर विभाग</p>
+        <p className="font-times">INCOME TAX DEPARTMENT</p>
       </div>
       <div className="flex justify-center w-[20%] mt-[-15px]">
         <img
@@ -17,9 +16,8 @@ export default function Header() {
         />
       </div>
       <div className="w-[40%] text-nowrap">
-        भारत सरकार
-        <br />
-        GOVT. OF INDIA
+        <p className="!font-mangal">भारत सरकार</p>
+        <p className="font-times">GOVT. OF INDIA</p>
       </div>
     </div>
   );
