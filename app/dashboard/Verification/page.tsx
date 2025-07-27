@@ -461,7 +461,8 @@ const validateForm = (
   return { isValid, errors: newErrors };
 };
 function Verification() {
-  const [selectedDocument, setSelectedDocument] = useState<DocumentType>("pan");
+  const [selectedDocument, setSelectedDocument] =
+    useState<DocumentType>("aadhaar");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
