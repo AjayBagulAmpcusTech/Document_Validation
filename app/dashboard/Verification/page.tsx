@@ -12,13 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   CreditCard,
   FileText,
-  GraduationCap,
   Shield,
   User,
   CheckCircle,
@@ -33,11 +31,14 @@ import {
   FileImage,
   Briefcase,
   Home,
+  GraduationCap,
 } from "lucide-react";
 import React from "react";
 import type { JSX } from "react";
-import { PassportTemplate } from "@/components/document-templates/passport-template";
 import Link from "next/link";
+
+// Import template components
+import { PassportTemplate } from "@/components/document-templates/passport-template";
 import UANEmployeeDetails from "@/components/document-templates/un-document-template";
 import EducationVerification from "@/components/document-templates/education-template";
 import NewPANCard from "@/components/document-templates/newPanCard";
@@ -65,6 +66,7 @@ interface DocumentConfig {
     maxLength?: number;
     pattern?: RegExp;
     errorMessage?: string;
+    consentText?: string;
   }>;
   description: string;
   requirements: string[];
@@ -77,7 +79,7 @@ const documentConfigs: DocumentConfig[] = [
     icon: <User className="h-5 w-5" />,
     color: "bg-blue-700",
     description: "Digitally signed Aadhaar card for online use",
-    requirements: ["12-digit Aadhaar number", "Full name", "Date of birth"],
+    requirements: ["12-digit Aadhaar number", "Consent for verification"],
     fields: [
       {
         name: "aadhaarNumber",
@@ -93,37 +95,15 @@ const documentConfigs: DocumentConfig[] = [
         errorMessage: "Aadhaar number must be exactly 12 digits",
       },
       {
-        name: "fullName",
-        label: "Full Name",
-        type: "text",
-        required: true,
-        placeholder: "As per Aadhaar card",
-        suggestion: "Please enter your name as per your Aadhaar card",
-        example: "Example: Rajesh Kumar Singh",
-        minLength: 2,
-        maxLength: 50,
-        pattern: /^[a-zA-Z\s]+$/,
-        errorMessage: "Name must be 2-50 characters, letters only",
-      },
-      {
-        name: "dateOfBirth",
-        label: "Date of Birth",
-        type: "date",
+        name: "consent",
+        label: "Consent",
+        type: "checkbox",
         required: true,
         placeholder: "",
-        suggestion: "Select your date of birth as mentioned in Aadhaar card",
-        example: "Must match Aadhaar records",
-        errorMessage: "Please select a valid date of birth",
-      },
-      {
-        name: "gender",
-        label: "Gender(M/F)",
-        type: "text",
-        required: true,
-        placeholder: "M/F",
-        suggestion: "Select your gender as mentioned in Aadhaar card",
-        example: "Must match Aadhaar records",
-        errorMessage: "Please select a valid gender(M/F)",
+        suggestion: "Please read and accept the consent terms",
+        consentText:
+          "I hereby authorize [Your Company Name] to use my Aadhaar number for the purpose of identity verification with my full consent in accordance with the Aadhaar Act and applicable laws.",
+        errorMessage: "You must provide consent to proceed",
       },
     ],
   },
@@ -133,11 +113,7 @@ const documentConfigs: DocumentConfig[] = [
     icon: <CreditCard className="h-5 w-5" />,
     color: "bg-green-500",
     description: "Permanent Account Number issued by Income Tax Department",
-    requirements: [
-      "10-character PAN number",
-      "Full name as per PAN",
-      "Date of birth",
-    ],
+    requirements: ["10-character PAN number", "Consent for verification"],
     fields: [
       {
         name: "panNumber",
@@ -154,27 +130,15 @@ const documentConfigs: DocumentConfig[] = [
           "PAN must be 10 characters (5 letters, 4 digits, 1 letter)",
       },
       {
-        name: "fullName",
-        label: "Full Name",
-        type: "text",
-        required: true,
-        placeholder: "As per PAN card",
-        suggestion: "Enter your name exactly as printed on your PAN card",
-        example: "Example: RAJESH KUMAR SINGH",
-        minLength: 2,
-        maxLength: 50,
-        pattern: /^[a-zA-Z\s]+$/,
-        errorMessage: "Name must be 2-50 characters, letters only",
-      },
-      {
-        name: "dateOfBirth",
-        label: "Date of Birth",
-        type: "date",
+        name: "consent",
+        label: "Consent",
+        type: "checkbox",
         required: true,
         placeholder: "",
-        suggestion: "Select your date of birth as registered with PAN",
-        example: "Must match PAN records",
-        errorMessage: "Please select a valid date of birth",
+        suggestion: "Please read and accept the consent terms",
+        consentText:
+          "I hereby authorize [Your Company Name] to verify my PAN number through Karza Technologies Pvt. Ltd. for identity validation purposes.",
+        errorMessage: "You must provide consent to proceed",
       },
     ],
   },
@@ -186,9 +150,8 @@ const documentConfigs: DocumentConfig[] = [
     description: "Indian Passport issued by Ministry of External Affairs",
     requirements: [
       "Passport number",
-      "Full name as per passport",
       "Date of birth",
-      "Passport expiry date",
+      "Consent for verification",
     ],
     fields: [
       {
@@ -206,19 +169,6 @@ const documentConfigs: DocumentConfig[] = [
           "Passport number must be 8 characters (1 letter + 7 digits)",
       },
       {
-        name: "fullName",
-        label: "Full Name",
-        type: "text",
-        required: true,
-        placeholder: "As per passport",
-        suggestion: "Enter your complete name as printed in your passport",
-        example: "Example: RAJESH KUMAR SINGH",
-        minLength: 2,
-        maxLength: 50,
-        pattern: /^[a-zA-Z\s]+$/,
-        errorMessage: "Name must be 2-50 characters, letters only",
-      },
-      {
         name: "dateOfBirth",
         label: "Date of Birth",
         type: "date",
@@ -229,14 +179,15 @@ const documentConfigs: DocumentConfig[] = [
         errorMessage: "Please select a valid date of birth",
       },
       {
-        name: "expiryDate",
-        label: "Expiry Date",
-        type: "date",
+        name: "consent",
+        label: "Consent",
+        type: "checkbox",
         required: true,
         placeholder: "",
-        suggestion: "Select the expiry date of your passport",
-        example: "Check page 2 of your passport",
-        errorMessage: "Please select a valid expiry date",
+        suggestion: "Please read and accept the consent terms",
+        consentText:
+          "I hereby authorize [Your Company Name] to verify my passport number through Karza Technologies Pvt. Ltd. for identity validation purposes.",
+        errorMessage: "You must provide consent to proceed",
       },
     ],
   },
@@ -315,7 +266,7 @@ const documentConfigs: DocumentConfig[] = [
     icon: <Briefcase className="h-5 w-5" />,
     color: "bg-orange-600",
     description: "Unified Account Number (UAN) document from EPFO",
-    requirements: ["12-digit UAN", "Full name as per EPFO", "Employer Name"],
+    requirements: ["12-digit UAN", "Consent for verification"],
     fields: [
       {
         name: "uanNumber",
@@ -331,37 +282,21 @@ const documentConfigs: DocumentConfig[] = [
         errorMessage: "UAN must be exactly 12 digits",
       },
       {
-        name: "fullName",
-        label: "Full Name",
-        type: "text",
+        name: "consent",
+        label: "Consent",
+        type: "checkbox",
         required: true,
-        placeholder: "As per EPFO records",
-        suggestion: "Enter your complete name exactly as registered with EPFO",
-        example: "Example: Rajesh Kumar Singh",
-        minLength: 2,
-        maxLength: 50,
-        pattern: /^[a-zA-Z\s]+$/,
-        errorMessage: "Name must be 2-50 characters, letters only",
-      },
-      {
-        name: "employerName",
-        label: "Employer Name",
-        type: "text",
-        required: true,
-        placeholder: "Current Employer",
-        suggestion:
-          "Enter the name of your current employer as per EPFO records",
-        example: "Example: Acme Corp Pvt Ltd",
-        minLength: 2,
-        maxLength: 100,
-        pattern: /^[a-zA-Z0-9\s.,&()-]+$/,
-        errorMessage: "Employer name must be 2-100 characters",
+        placeholder: "",
+        suggestion: "Please read and accept the consent terms",
+        consentText:
+          "I hereby authorize [Your Company Name] to verify my UAN number via Karza Technologies Pvt. Ltd. for employment and identity validation purposes.",
+        errorMessage: "You must provide consent to proceed",
       },
     ],
   },
 ];
 
-// Mock OCR function
+// Mock OCR function - Enhanced to extract more data
 const performOCR = async (
   file: File,
   documentType: DocumentType
@@ -374,54 +309,82 @@ const performOCR = async (
       fullName: "PRIYA SHARMA",
       dateOfBirth: "1992-11-22",
       gender: "F",
+      address: "123 Main Street, Bangalore, Karnataka - 560001",
+      fatherName: "RAJESH SHARMA",
+      mobileNumber: "+91-9876543210",
     },
     pan: {
       panNumber: "ABCDE1234F",
       fullName: "RAJESH KUMAR SINGH",
       dateOfBirth: "1990-05-15",
+      fatherName: "SURESH KUMAR SINGH",
     },
     passport: {
       passportNumber: "A1234567",
       fullName: "RAJESH KUMAR SINGH",
       dateOfBirth: "1990-05-15",
       expiryDate: "2030-05-15",
+      issueDate: "2020-05-15",
+      placeOfBirth: "New Delhi",
+      nationality: "Indian",
     },
     education: {
       certificateName: "Bachelor of Technology",
       institutionName: "Indian Institute of Technology Delhi",
       rollNumber: "2019CSE001",
       yearOfPassing: "2023",
+      grade: "First Class",
+      subjects: "Computer Science and Engineering",
     },
     un: {
       uanNumber: "101010101010",
       fullName: "ANIL KUMAR",
       employerName: "Tech Solutions Pvt Ltd",
+      pfNumber: "KA/BGE/12345/67890",
+      dateOfJoining: "2020-01-15",
     },
   };
 
   return mockData[documentType] || {};
 };
 
-const validateField = (field: any, value: string): string => {
-  if (field.required && !value.trim()) {
-    return `${field.label} is required`;
+const sendOTP = async (aadhaarNumber: string): Promise<boolean> => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // Mock OTP sending - in real implementation, this would call your OTP service
+  console.log(`OTP sent to Aadhaar number: ${aadhaarNumber}`);
+  return true;
+};
+
+const verifyOTP = async (otp: string): Promise<boolean> => {
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+  // Mock OTP verification - in real implementation, this would verify the OTP
+  return otp === "123456"; // Mock OTP for demo
+};
+
+const validateField = (field: any, value: string | boolean): string => {
+  if (
+    field.required &&
+    (field.type === "checkbox" ? !value : !String(value).trim())
+  ) {
+    return field.errorMessage || `${field.label} is required`;
   }
 
-  if (value.trim()) {
-    if (field.minLength && value.length < field.minLength) {
+  if (field.type !== "checkbox" && String(value).trim()) {
+    const stringValue = String(value);
+    if (field.minLength && stringValue.length < stringValue.length) {
       return `${field.label} must be at least ${field.minLength} characters`;
     }
 
-    if (field.maxLength && value.length > field.maxLength) {
+    if (field.maxLength && stringValue.length > stringValue.length) {
       return `${field.label} must not exceed ${field.maxLength} characters`;
     }
 
-    if (field.pattern && !field.pattern.test(value)) {
+    if (field.pattern && !field.pattern.test(stringValue)) {
       return field.errorMessage || `${field.label} format is invalid`;
     }
 
-    if (field.type === "date" && value) {
-      const date = new Date(value);
+    if (field.type === "date" && stringValue) {
+      const date = new Date(stringValue);
       const today = new Date();
 
       if (field.name === "dateOfBirth" && date > today) {
@@ -460,10 +423,13 @@ const validateForm = (
   setIsFormValid(isValid);
   return { isValid, errors: newErrors };
 };
+
 function Verification() {
   const [selectedDocument, setSelectedDocument] =
     useState<DocumentType>("aadhaar");
-  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState<Record<string, string | boolean>>(
+    {}
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState<"form" | "preview" | "result">(
@@ -479,6 +445,14 @@ function Verification() {
     "default" | "success" | "invalid" | "server"
   >("default");
   const [failureReason, setFailureReason] = useState<string | null>(null);
+  const [extractedOCRData, setExtractedOCRData] = useState<
+    Record<string, string>
+  >({});
+
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpValue, setOtpValue] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [isOtpVerifying, setIsOtpVerifying] = useState(false);
 
   const fieldRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -517,9 +491,13 @@ function Verification() {
     }
   };
 
-  const handleInputChange = (name: string, value: string) => {
+  const handleInputChange = (name: string, value: string | boolean) => {
     const field = currentConfig.fields.find((f) => f.name === name);
-    if (field?.maxLength && value.length > field.maxLength) {
+    if (
+      field?.maxLength &&
+      typeof value === "string" &&
+      value.length > field.maxLength
+    ) {
       return;
     }
 
@@ -552,7 +530,18 @@ function Verification() {
     setIsOCRProcessing(true);
     try {
       const extractedData = await performOCR(file, selectedDocument);
-      setFormData((prev) => ({ ...prev, ...extractedData }));
+      setExtractedOCRData(extractedData);
+
+      // Auto-populate form fields with extracted data
+      const updatedFormData = { ...formData };
+      Object.keys(extractedData).forEach((key) => {
+        // Only populate if the field exists in current config and is not a checkbox
+        const field = currentConfig.fields.find((f) => f.name === key);
+        if (field && field.type !== "checkbox") {
+          updatedFormData[key] = extractedData[key];
+        }
+      });
+      setFormData(updatedFormData);
       setErrors({});
     } catch (error) {
       console.error("OCR processing failed:", error);
@@ -577,6 +566,49 @@ function Verification() {
       return;
     }
 
+    // Special handling for Aadhaar - send OTP first
+    if (selectedDocument === "aadhaar" && !otpSent) {
+      setIsVerifying(true);
+      try {
+        const success = await sendOTP(formData.aadhaarNumber as string);
+        if (success) {
+          setOtpSent(true);
+          setIsVerifying(false);
+          return;
+        }
+      } catch (error) {
+        console.error("Failed to send OTP:", error);
+        alert("Failed to send OTP. Please try again.");
+        setIsVerifying(false);
+        return;
+      }
+    }
+
+    // For Aadhaar, verify OTP first
+    if (selectedDocument === "aadhaar" && otpSent) {
+      if (!otpValue.trim()) {
+        setOtpError("Please enter the OTP");
+        return;
+      }
+
+      setIsOtpVerifying(true);
+      try {
+        const otpValid = await verifyOTP(otpValue);
+        if (!otpValid) {
+          setOtpError("Invalid OTP. Please try again.");
+          setIsOtpVerifying(false);
+          return;
+        }
+      } catch (error) {
+        console.error("OTP verification failed:", error);
+        setOtpError("OTP verification failed. Please try again.");
+        setIsOtpVerifying(false);
+        return;
+      }
+      setIsOtpVerifying(false);
+    }
+
+    // Proceed with verification
     setIsVerifying(true);
     setCurrentStep("preview");
 
@@ -612,12 +644,17 @@ function Verification() {
     setErrors({});
     setIsFormValid(false);
     setUploadedImage(null);
+    setExtractedOCRData({});
+    setOtpSent(false);
+    setOtpValue("");
+    setOtpError("");
     fieldRefs.current = {};
   };
 
   useEffect(() => {
     fieldRefs.current = {};
     setUploadedImage(null);
+    setExtractedOCRData({});
     // Scroll the form area to top when document type changes
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
@@ -807,36 +844,67 @@ function Verification() {
                               </div>
                             )}
 
-                            {uploadedImage && !isOCRProcessing && (
-                              <div className="mt-4 flex flex-col md:flex-row items-center gap-6">
-                                {/* Left: Image */}
-                                <div className="flex-shrink-0">
-                                  <img
-                                    src={uploadedImage || "/placeholder.svg"}
-                                    alt="Uploaded document"
-                                    className="max-w-xs rounded-lg border-2 border-green-300 shadow-md"
-                                  />
+                            {uploadedImage &&
+                              !isOCRProcessing &&
+                              Object.keys(extractedOCRData).length > 0 && (
+                                <div className="mt-6">
+                                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    {/* Left: Image */}
+                                    <div className="flex justify-center">
+                                      <img
+                                        src={
+                                          uploadedImage || "/placeholder.svg"
+                                        }
+                                        alt="Uploaded document"
+                                        className="max-w-full h-64 object-contain rounded-lg border-2 border-green-300 shadow-md"
+                                      />
+                                    </div>
+
+                                    {/* Right: Extracted Data */}
+                                    <div className="text-left">
+                                      <div className="bg-white rounded-lg border-2 border-green-300 p-4">
+                                        <div className="flex items-center mb-3">
+                                          <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
+                                          <h4 className="text-lg font-semibold text-green-800">
+                                            Data Extracted Successfully!
+                                          </h4>
+                                        </div>
+
+                                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                                          {Object.entries(extractedOCRData).map(
+                                            ([key, value]) => (
+                                              <div
+                                                key={key}
+                                                className="flex justify-between items-start py-1 border-b border-gray-100 last:border-b-0"
+                                              >
+                                                <span className="font-medium text-gray-700 capitalize text-sm">
+                                                  {key
+                                                    .replace(/([A-Z])/g, " $1")
+                                                    .replace(/^./, (str) =>
+                                                      str.toUpperCase()
+                                                    )}
+                                                  :
+                                                </span>
+                                                <span className="text-gray-900 text-sm font-mono ml-2 flex-1 text-right">
+                                                  {value}
+                                                </span>
+                                              </div>
+                                            )
+                                          )}
+                                        </div>
+
+                                        <div className="mt-3 pt-3 border-t border-gray-200">
+                                          <p className="text-xs text-green-600 flex items-center">
+                                            <Info className="h-3 w-3 mr-1" />
+                                            Form fields have been automatically
+                                            populated with extracted data
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                {/* Right: Details */}
-                                <div className="flex-1 text-left">
-                                  <p className="text-lg text-green-700 font-semibold mb-2">
-                                    ✓ Data extracted successfully!
-                                  </p>
-                                  <ul className="text-sm text-slate-700 space-y-1">
-                                    {currentConfig.fields.map((field) =>
-                                      formData[field.name] ? (
-                                        <li key={field.name}>
-                                          <span className="font-medium">
-                                            {field.label}:
-                                          </span>{" "}
-                                          {formData[field.name]}
-                                        </li>
-                                      ) : null
-                                    )}
-                                  </ul>
-                                </div>
-                              </div>
-                            )}
+                              )}
                           </div>
                         </div>
                       </div>
@@ -896,131 +964,176 @@ function Verification() {
                               fieldRefs.current[field.name] = el;
                             }}
                           >
-                            <Label
-                              htmlFor={field.name}
-                              className="text-base font-semibold mb-3 block"
-                            >
-                              {field.label}
-                              {field.required && (
-                                <span className="text-red-500 ml-1">*</span>
-                              )}
-                            </Label>
-
-                            {/* Suggestion Box */}
-                            {field.suggestion && (
-                              <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                                <div className="flex items-start space-x-3">
-                                  <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                                  <div className="text-sm">
-                                    <p className="text-blue-800 font-medium text-base">
-                                      {field.suggestion}
-                                    </p>
-                                    {field.example && (
-                                      <p className="text-blue-600 mt-2 italic text-sm">
-                                        {field.example}
-                                      </p>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Input Field */}
-                            <div className="flex-1">
-                              {field.type === "textarea" ? (
-                                <div className="w-full">
-                                  <Textarea
-                                    id={field.name}
-                                    placeholder={field.placeholder}
-                                    value={formData[field.name] || ""}
-                                    onChange={(e) =>
-                                      handleInputChange(
-                                        field.name,
-                                        e.target.value
-                                      )
-                                    }
-                                    className={`w-full ${
-                                      errors[field.name]
-                                        ? "border-red-500 focus:border-red-500 ring-red-200"
-                                        : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                    } text-base p-4 min-h-[120px] transition-all duration-200 resize-none border-2 ${
-                                      formData[field.name]
-                                        ? "bg-green-50 border-green-300"
-                                        : ""
-                                    }`}
-                                    rows={4}
-                                    maxLength={field.maxLength}
-                                  />
-                                  {field.maxLength && (
-                                    <div className="flex justify-end mt-2">
-                                      <span className="text-xs text-slate-500">
-                                        {(formData[field.name] || "").length}/
-                                        {field.maxLength} characters
+                            {field.type === "checkbox" ? (
+                              <div className="space-y-4 mt-9">
+                                {/* For Aadhaar, PAN, and UAN - inline layout */}
+                                {selectedDocument === "aadhaar" ||
+                                selectedDocument === "pan" ||
+                                selectedDocument === "un" ? (
+                                  <div className="flex items-start space-x-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                    <input
+                                      type="checkbox"
+                                      id={field.name}
+                                      checked={!!formData[field.name]}
+                                      onChange={(e) =>
+                                        handleInputChange(
+                                          field.name,
+                                          e.target.checked
+                                        )
+                                      }
+                                      className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 flex-shrink-0"
+                                    />
+                                    <Label
+                                      htmlFor={field.name}
+                                      className="text-sm text-blue-800 leading-relaxed cursor-pointer"
+                                    >
+                                      {field.consentText}
+                                      <span className="text-red-500 ml-1">
+                                        *
                                       </span>
+                                    </Label>
+                                  </div>
+                                ) : (
+                                  /* For other documents - separate layout */
+                                  <>
+                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                      <p className="text-sm text-blue-800 leading-relaxed">
+                                        {field.consentText}
+                                      </p>
+                                    </div>
+                                    <div className="flex items-start space-x-3">
+                                      <input
+                                        type="checkbox"
+                                        id={field.name}
+                                        checked={!!formData[field.name]}
+                                        onChange={(e) =>
+                                          handleInputChange(
+                                            field.name,
+                                            e.target.checked
+                                          )
+                                        }
+                                        className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                      />
+                                      <Label
+                                        htmlFor={field.name}
+                                        className="text-sm font-medium cursor-pointer"
+                                      >
+                                        I agree to the above terms and
+                                        conditions
+                                        <span className="text-red-500 ml-1">
+                                          *
+                                        </span>
+                                      </Label>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            ) : (
+                              <>
+                                <Label
+                                  htmlFor={field.name}
+                                  className="text-base font-semibold mb-3 block"
+                                >
+                                  {field.label}
+                                  {field.required && (
+                                    <span className="text-red-500 ml-1">*</span>
+                                  )}
+                                </Label>
+
+                                {/* Suggestion Box */}
+                                {field.suggestion && (
+                                  <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                    <div className="flex items-start space-x-3">
+                                      <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                                      <div className="text-sm">
+                                        <p className="text-blue-800 font-medium text-base">
+                                          {field.suggestion}
+                                        </p>
+                                        {field.example && (
+                                          <p className="text-blue-600 mt-2 italic text-sm">
+                                            {field.example}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Input Field */}
+                                <div className="flex-1">
+                                  {field.type === "date" ? (
+                                    <div className="w-full relative">
+                                      <Input
+                                        id={field.name}
+                                        type="date"
+                                        value={formData[field.name] || ""}
+                                        onChange={(e) =>
+                                          handleInputChange(
+                                            field.name,
+                                            e.target.value
+                                          )
+                                        }
+                                        className={`w-full ${
+                                          errors[field.name]
+                                            ? "border-red-500 focus:border-red-500 ring-red-200"
+                                            : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                        } text-base p-4 h-14 transition-all duration-200 pr-12 border-2 ${
+                                          formData[field.name]
+                                            ? extractedOCRData[field.name]
+                                              ? "bg-blue-50 border-blue-300"
+                                              : "bg-green-50 border-green-300"
+                                            : ""
+                                        }`}
+                                      />
+                                      <CalendarDays className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none" />
+                                      {extractedOCRData[field.name] && (
+                                        <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
+                                          <Scan
+                                            className="h-4 w-4 text-blue-600"
+                                            title="Auto-filled by OCR"
+                                          />
+                                        </div>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <div className="w-full relative">
+                                      <Input
+                                        id={field.name}
+                                        type={field.type}
+                                        placeholder={field.placeholder}
+                                        value={formData[field.name] || ""}
+                                        onChange={(e) =>
+                                          handleInputChange(
+                                            field.name,
+                                            e.target.value
+                                          )
+                                        }
+                                        className={`w-full ${
+                                          errors[field.name]
+                                            ? "border-red-500 focus:border-red-500 ring-red-200"
+                                            : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                        } text-base p-4 h-14 transition-all duration-200 border-2 ${
+                                          formData[field.name]
+                                            ? extractedOCRData[field.name]
+                                              ? "bg-blue-50 border-blue-300"
+                                              : "bg-green-50 border-green-300"
+                                            : ""
+                                        }`}
+                                        maxLength={field.maxLength}
+                                      />
+                                      {extractedOCRData[field.name] && (
+                                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                          <Scan
+                                            className="h-4 w-4 text-blue-600"
+                                            title="Auto-filled by OCR"
+                                          />
+                                        </div>
+                                      )}
                                     </div>
                                   )}
                                 </div>
-                              ) : field.type === "date" ? (
-                                <div className="w-full relative">
-                                  <Input
-                                    id={field.name}
-                                    type="date"
-                                    value={formData[field.name] || ""}
-                                    onChange={(e) =>
-                                      handleInputChange(
-                                        field.name,
-                                        e.target.value
-                                      )
-                                    }
-                                    className={`w-full ${
-                                      errors[field.name]
-                                        ? "border-red-500 focus:border-red-500 ring-red-200"
-                                        : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                    } text-base p-4 h-14 transition-all duration-200 pr-12 border-2 ${
-                                      formData[field.name]
-                                        ? "bg-green-50 border-green-300"
-                                        : ""
-                                    }`}
-                                  />
-                                  <CalendarDays className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none" />
-                                </div>
-                              ) : (
-                                <div className="w-full">
-                                  <Input
-                                    id={field.name}
-                                    type={field.type}
-                                    placeholder={field.placeholder}
-                                    value={formData[field.name] || ""}
-                                    onChange={(e) =>
-                                      handleInputChange(
-                                        field.name,
-                                        e.target.value
-                                      )
-                                    }
-                                    className={`w-full ${
-                                      errors[field.name]
-                                        ? "border-red-500 focus:border-red-500 ring-red-200"
-                                        : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                    } text-base p-4 h-14 transition-all duration-200 border-2 ${
-                                      formData[field.name]
-                                        ? "bg-green-50 border-green-300"
-                                        : ""
-                                    }`}
-                                    maxLength={field.maxLength}
-                                  />
-                                  {field.maxLength &&
-                                    field.type !== "date" &&
-                                    field.type !== "file" && (
-                                      <div className="flex justify-end mt-2">
-                                        <span className="text-xs text-slate-500">
-                                          {(formData[field.name] || "").length}/
-                                          {field.maxLength} characters
-                                        </span>
-                                      </div>
-                                    )}
-                                </div>
-                              )}
-                            </div>
+                              </>
+                            )}
 
                             {/* Error Message */}
                             {errors[field.name] && (
@@ -1039,13 +1152,72 @@ function Verification() {
                             )}
                           </div>
                         ))}
+
+                        {/* OTP Section for Aadhaar */}
+                        {selectedDocument === "aadhaar" && otpSent && (
+                          <div className="md:col-span-2 mt-6 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg">
+                            <h3 className="text-lg font-semibold text-yellow-800 mb-4">
+                              OTP Verification
+                            </h3>
+                            <p className="text-sm text-yellow-700 mb-4">
+                              An OTP has been sent to your registered mobile
+                              number. Please enter the 6-digit OTP below.
+                            </p>
+
+                            <div className="space-y-4">
+                              <div>
+                                <Label
+                                  htmlFor="otp"
+                                  className="text-base font-semibold mb-2 block"
+                                >
+                                  Enter OTP{" "}
+                                  <span className="text-red-500">*</span>
+                                </Label>
+                                <Input
+                                  id="otp"
+                                  type="text"
+                                  placeholder="123456"
+                                  value={otpValue}
+                                  onChange={(e) => {
+                                    setOtpValue(e.target.value);
+                                    if (otpError) setOtpError("");
+                                  }}
+                                  className={`w-full max-w-xs ${
+                                    otpError
+                                      ? "border-red-500 focus:border-red-500 ring-red-200"
+                                      : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                  } text-base p-4 h-14 transition-all duration-200 border-2 text-center font-mono text-lg tracking-widest`}
+                                  maxLength={6}
+                                />
+                                <p className="text-xs text-gray-500 mt-2">
+                                  Demo OTP: 123456
+                                </p>
+                              </div>
+
+                              {otpError && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: -10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  className="w-full"
+                                >
+                                  <div className="flex items-center bg-red-50 p-3 rounded-md border border-red-200">
+                                    <XCircle className="h-4 w-4 mr-2 flex-shrink-0 text-red-500" />
+                                    <p className="text-red-600 text-sm font-medium">
+                                      {otpError}
+                                    </p>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex justify-end pt-8 gap-4">
                         <Button
                           onClick={resetForm}
                           variant="outline"
-                          className="px-6 py-3 text-base font-semibold"
+                          className="px-6 py-3 text-base font-semibold bg-transparent"
                           type="button"
                         >
                           Reset
@@ -1054,10 +1226,21 @@ function Verification() {
                           onClick={handleVerify}
                           size="sm"
                           className="px-6 py-3 text-base font-semibold"
-                          disabled={Object.keys(formData).length === 0}
+                          disabled={
+                            Object.keys(formData).length === 0 ||
+                            (selectedDocument === "aadhaar" &&
+                              otpSent &&
+                              isOtpVerifying)
+                          }
                         >
                           <Shield className="h-5 w-5 mr-2" />
-                          Verify Document
+                          {selectedDocument === "aadhaar" && !otpSent
+                            ? "Send OTP"
+                            : selectedDocument === "aadhaar" && otpSent
+                            ? isOtpVerifying
+                              ? "Verifying OTP..."
+                              : "Verify OTP & Document"
+                            : "Verify Document"}
                         </Button>
                       </div>
                     </CardContent>
@@ -1226,7 +1409,7 @@ function Verification() {
                         <Button
                           onClick={resetForm}
                           variant="outline"
-                          className="py-3 px-6 text-base"
+                          className="py-3 px-6 text-base bg-transparent"
                         >
                           <ArrowLeft className="h-4 w-4 mr-2" />
                           Try Again
