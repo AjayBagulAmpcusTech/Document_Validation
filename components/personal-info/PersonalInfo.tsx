@@ -15,7 +15,7 @@ export default function PersonalInfo({
         className="w-[120px] h-[140px] bg-gray-300 border border-gray-500 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://via.placeholder.com/120x140.png?text=Photo')",
+            "url('/aadhaarProfile.jpg')",
         }}
       ></div>
       <p className="my-2">

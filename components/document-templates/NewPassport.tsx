@@ -19,11 +19,13 @@ const NewPassport = (formData: any) => {
           {/* Left Side - Photo and Signature */}
           <div className="left-section">
             <div className="photo-area">
-              {/* {<img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/passport%201.jpg-wgQL75J8QD1w4IvZixbHwxFMztq3AC.jpeg"
-                alt="Passport Photo"
-                className="passport-photo"
-              /> } */}
+              {
+                <img
+                  src="/aadhaarProfile.jpg"
+                  alt="Passport Photo"
+                  className="passport-photo"
+                />
+              }
             </div>
           </div>
 
@@ -110,9 +112,12 @@ const NewPassport = (formData: any) => {
         </div>
         <div className="flex gap-2">
           <div className="w-[300px]">
-            <div className="signature-wrapper ">
+            <div className="signature-wrapper">
               <div className="signature-area">
-                <span className=""></span>
+                <div className="">
+                  {" "}
+                  <img src="/signature.png" />
+                </div>
               </div>
             </div>
           </div>

@@ -137,7 +137,7 @@ const documentConfigs: DocumentConfig[] = [
         placeholder: "",
         suggestion: "Please read and accept the consent terms",
         consentText:
-          "I hereby authorize [Your Company Name] to verify my PAN number through Karza Technologies Pvt. Ltd. for identity validation purposes.",
+          "I hereby authorize [Your Company Name] to verify my PAN number for the purpose of identity verification.",
         errorMessage: "You must provide consent to proceed",
       },
     ],
@@ -174,7 +174,7 @@ const documentConfigs: DocumentConfig[] = [
         type: "date",
         required: true,
         placeholder: "",
-        suggestion: "Select your date of birth as mentioned in passport",
+        suggestion: "Select your date of birth as per your passport.",
         example: "Must match passport records",
         errorMessage: "Please select a valid date of birth",
       },
@@ -186,7 +186,7 @@ const documentConfigs: DocumentConfig[] = [
         placeholder: "",
         suggestion: "Please read and accept the consent terms",
         consentText:
-          "I hereby authorize [Your Company Name] to verify my passport number through Karza Technologies Pvt. Ltd. for identity validation purposes.",
+          "I hereby authorize [Your Company Name] to verify my passport number for identity validation purposes.",
         errorMessage: "You must provide consent to proceed",
       },
     ],
@@ -289,7 +289,7 @@ const documentConfigs: DocumentConfig[] = [
         placeholder: "",
         suggestion: "Please read and accept the consent terms",
         consentText:
-          "I hereby authorize [Your Company Name] to verify my UAN number via Karza Technologies Pvt. Ltd. for employment and identity validation purposes.",
+          "I hereby authorize [Your Company Name] to verify my UAN number for employment and identity validation purposes.",
         errorMessage: "You must provide consent to proceed",
       },
     ],
@@ -306,11 +306,11 @@ const performOCR = async (
   const mockData: Record<DocumentType, Record<string, string>> = {
     aadhaar: {
       aadhaarNumber: "987654321098",
-      fullName: "PRIYA SHARMA",
+      fullName: "RAJESH KUMAR SINGH",
       dateOfBirth: "1992-11-22",
-      gender: "F",
+      gender: "M",
       address: "123 Main Street, Bangalore, Karnataka - 560001",
-      fatherName: "RAJESH SHARMA",
+      fatherName: "Kumar SINGH",
       mobileNumber: "+91-9876543210",
     },
     pan: {
