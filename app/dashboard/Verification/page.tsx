@@ -311,7 +311,6 @@ const performOCR = async (
       gender: "M",
       address: "123 Main Street, Bangalore, Karnataka - 560001",
       fatherName: "Kumar SINGH",
-      mobileNumber: "+91-9876543210",
     },
     pan: {
       panNumber: "ABCDE1234F",
