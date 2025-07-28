@@ -427,9 +427,7 @@ const validateForm = (
 function Verification() {
   const [selectedDocument, setSelectedDocument] =
     useState<DocumentType>("aadhaar");
-  const [formData, setFormData] = useState<any>(
-    {}
-  );
+  const [formData, setFormData] = useState<any>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState<"form" | "preview" | "result">(
@@ -501,7 +499,7 @@ function Verification() {
       return;
     }
 
-    setFormData((prev:any) => ({ ...prev, [name]: value }));
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
 
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
@@ -770,109 +768,111 @@ function Verification() {
                       className="space-y-6 max-h-[calc(100vh-180px)] overflow-y-auto px-4 md:px-6 lg:px-8 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100"
                     >
                       {/* OCR Upload Section */}
-                      <div className="mb-8">
-                        <h3 className="font-semibold text-slate-900 mb-4 text-xl flex items-center">
-                          <Scan className="h-6 w-6 mr-2 text-blue-600" />
-                          Smart OCR Upload
-                        </h3>
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-dashed border-blue-300 rounded-lg p-6">
-                          <div className="text-center">
-                            <div className="flex justify-center mb-4">
+                      {selectedDocument !== "un" && (
+                        <div className="mb-8">
+                          <h3 className="font-semibold text-slate-900 mb-4 text-xl flex items-center">
+                            <Scan className="h-6 w-6 mr-2 text-blue-600" />
+                            Smart OCR Upload
+                          </h3>
+                          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-dashed border-blue-300 rounded-lg p-6">
+                            <div className="text-center">
+                              <div className="flex justify-center mb-4">
+                                {isOCRProcessing ? (
+                                  <Loader2 className="h-12 w-12 text-blue-600 animate-spin" />
+                                ) : (
+                                  <FileImage className="h-12 w-12 text-blue-600" />
+                                )}
+                              </div>
+
                               {isOCRProcessing ? (
-                                <Loader2 className="h-12 w-12 text-blue-600 animate-spin" />
-                              ) : (
-                                <FileImage className="h-12 w-12 text-blue-600" />
-                              )}
-                            </div>
-
-                            {isOCRProcessing ? (
-                              <div>
-                                <p className="text-lg font-medium text-blue-800 mb-2">
-                                  Processing Document...
-                                </p>
-                                <p className="text-sm text-blue-600">
-                                  Extracting data from your image using AI
-                                </p>
-                              </div>
-                            ) : (
-                              <div>
-                                <p className="text-lg font-medium text-slate-800 mb-2">
-                                  Upload {currentConfig.name} Image
-                                </p>
-                                <p className="text-sm text-slate-600 mb-4">
-                                  Take a photo or upload an image of your
-                                  document. Our AI will automatically extract
-                                  the required information.
-                                </p>
-
-                                <input
-                                  ref={fileInputRef}
-                                  type="file"
-                                  accept="image/*"
-                                  onChange={handleFileUpload}
-                                  className="hidden"
-                                />
-
-                                <div className="flex gap-3 justify-center">
-                                  <Button
-                                    onClick={() =>
-                                      fileInputRef.current?.click()
-                                    }
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
-                                    disabled={isOCRProcessing}
-                                  >
-                                    <Upload className="h-5 w-5 mr-2" />
-                                    Upload Image
-                                  </Button>
-
-                                  <Button
-                                    onClick={() => {
-                                      fileInputRef.current?.setAttribute(
-                                        "capture",
-                                        "environment"
-                                      );
-                                      fileInputRef.current?.click();
-                                    }}
-                                    variant="outline"
-                                    className="border-blue-300 text-blue-600 hover:bg-blue-50 px-6 py-3"
-                                    disabled={isOCRProcessing}
-                                  >
-                                    <Camera className="h-5 w-5 mr-2" />
-                                    Take Photo
-                                  </Button>
+                                <div>
+                                  <p className="text-lg font-medium text-blue-800 mb-2">
+                                    Processing Document...
+                                  </p>
+                                  <p className="text-sm text-blue-600">
+                                    Extracting data from your image using AI
+                                  </p>
                                 </div>
-                              </div>
-                            )}
+                              ) : (
+                                <div>
+                                  <p className="text-lg font-medium text-slate-800 mb-2">
+                                    Upload {currentConfig.name} Image
+                                  </p>
+                                  <p className="text-sm text-slate-600 mb-4">
+                                    Take a photo or upload an image of your
+                                    document. Our AI will automatically extract
+                                    the required information.
+                                  </p>
 
-                            {uploadedImage &&
-                              !isOCRProcessing &&
-                              Object.keys(extractedOCRData).length > 0 && (
-                                <div className="mt-6">
-                                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                    {/* Left: Image */}
-                                    <div className="flex justify-center">
-                                      <img
-                                        src={
-                                          uploadedImage || "/placeholder.svg"
-                                        }
-                                        alt="Uploaded document"
-                                        className="max-w-full h-64 object-contain rounded-lg border-2 border-green-300 shadow-md"
-                                      />
-                                    </div>
+                                  <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileUpload}
+                                    className="hidden"
+                                  />
 
-                                    {/* Right: Extracted Data */}
-                                    <div className="text-left">
-                                      <div className="bg-white rounded-lg border-2 border-green-300 p-4">
-                                        <div className="flex items-center mb-3">
-                                          <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-                                          <h4 className="text-lg font-semibold text-green-800">
-                                            Data Extracted Successfully!
-                                          </h4>
-                                        </div>
+                                  <div className="flex gap-3 justify-center">
+                                    <Button
+                                      onClick={() =>
+                                        fileInputRef.current?.click()
+                                      }
+                                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
+                                      disabled={isOCRProcessing}
+                                    >
+                                      <Upload className="h-5 w-5 mr-2" />
+                                      Upload Image
+                                    </Button>
 
-                                        <div className="space-y-2 max-h-48 overflow-y-auto">
-                                          {Object.entries(extractedOCRData).map(
-                                            ([key, value]) => (
+                                    <Button
+                                      onClick={() => {
+                                        fileInputRef.current?.setAttribute(
+                                          "capture",
+                                          "environment"
+                                        );
+                                        fileInputRef.current?.click();
+                                      }}
+                                      variant="outline"
+                                      className="border-blue-300 text-blue-600 hover:bg-blue-50 px-6 py-3"
+                                      disabled={isOCRProcessing}
+                                    >
+                                      <Camera className="h-5 w-5 mr-2" />
+                                      Take Photo
+                                    </Button>
+                                  </div>
+                                </div>
+                              )}
+
+                              {uploadedImage &&
+                                !isOCRProcessing &&
+                                Object.keys(extractedOCRData).length > 0 && (
+                                  <div className="mt-6">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                      {/* Left: Image */}
+                                      <div className="flex justify-center">
+                                        <img
+                                          src={
+                                            uploadedImage || "/placeholder.svg"
+                                          }
+                                          alt="Uploaded document"
+                                          className="max-w-full h-64 object-contain rounded-lg border-2 border-green-300 shadow-md"
+                                        />
+                                      </div>
+
+                                      {/* Right: Extracted Data */}
+                                      <div className="text-left">
+                                        <div className="bg-white rounded-lg border-2 border-green-300 p-4">
+                                          <div className="flex items-center mb-3">
+                                            <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
+                                            <h4 className="text-lg font-semibold text-green-800">
+                                              Data Extracted Successfully!
+                                            </h4>
+                                          </div>
+
+                                          <div className="space-y-2 max-h-48 overflow-y-auto">
+                                            {Object.entries(
+                                              extractedOCRData
+                                            ).map(([key, value]) => (
                                               <div
                                                 key={key}
                                                 className="flex justify-between items-start py-1 border-b border-gray-100 last:border-b-0"
@@ -889,25 +889,26 @@ function Verification() {
                                                   {value}
                                                 </span>
                                               </div>
-                                            )
-                                          )}
-                                        </div>
+                                            ))}
+                                          </div>
 
-                                        <div className="mt-3 pt-3 border-t border-gray-200">
-                                          <p className="text-xs text-green-600 flex items-center">
-                                            <Info className="h-3 w-3 mr-1" />
-                                            Form fields have been automatically
-                                            populated with extracted data
-                                          </p>
+                                          <div className="mt-3 pt-3 border-t border-gray-200">
+                                            <p className="text-xs text-green-600 flex items-center">
+                                              <Info className="h-3 w-3 mr-1" />
+                                              Form fields have been
+                                              automatically populated with
+                                              extracted data
+                                            </p>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                              )}
+                                )}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
 
                       <Separator className="my-8" />
 
@@ -935,7 +936,7 @@ function Verification() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* DEMO CONTROL: Force Verification Result */}
                         <div className="md:col-span-2 mb-2 w-80">
-                          <span>Force Verification Result (Demo Only)</span>
+                          <span>Force Verification Result</span>
                           <select
                             value={forceResult}
                             onChange={(e) =>
@@ -1088,10 +1089,7 @@ function Verification() {
                                       <CalendarDays className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none" />
                                       {extractedOCRData[field.name] && (
                                         <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
-                                          <Scan
-                                            className="h-4 w-4 text-blue-600"
-                                            title="Auto-filled by OCR"
-                                          />
+                                          <Scan className="h-4 w-4 text-blue-600" />
                                         </div>
                                       )}
                                     </div>
@@ -1123,10 +1121,7 @@ function Verification() {
                                       />
                                       {extractedOCRData[field.name] && (
                                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                          <Scan
-                                            className="h-4 w-4 text-blue-600"
-                                            title="Auto-filled by OCR"
-                                          />
+                                          <Scan className="h-4 w-4 text-blue-600" />
                                         </div>
                                       )}
                                     </div>
