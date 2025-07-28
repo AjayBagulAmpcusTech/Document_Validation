@@ -4,7 +4,7 @@ import Info from "./aadhaar/info";
 import RightSideAadhaar from "./aadhaar/rightSideAadhaar";
 
 const NewAadhaarCard = (formData: any) => {
-  function formatAadhaarNumber(aadhaar:any) {
+  function formatAadhaarNumber(aadhaar: any) {
     // Remove all non-digit characters
     const digits = aadhaar.replace(/\D/g, "");
 
@@ -22,6 +22,7 @@ const NewAadhaarCard = (formData: any) => {
           {/* Photo */}
           <div className="w-[100px] h-[120px] bg-gray-300 mt-2">
             {/* Photo Placeholder */}
+            <img src="/aadhaarProfile.jpg" alt="" className="h-32 w-48" />
           </div>
           <div>
             <Info formData={formData} />
