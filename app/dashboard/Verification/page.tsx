@@ -427,7 +427,7 @@ const validateForm = (
 function Verification() {
   const [selectedDocument, setSelectedDocument] =
     useState<DocumentType>("aadhaar");
-  const [formData, setFormData] = useState<Record<string, string | boolean>>(
+  const [formData, setFormData] = useState<any>(
     {}
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -501,7 +501,7 @@ function Verification() {
       return;
     }
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev:any) => ({ ...prev, [name]: value }));
 
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
