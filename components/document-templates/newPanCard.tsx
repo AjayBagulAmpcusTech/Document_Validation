@@ -7,8 +7,10 @@ import QRCode from "../qr-code/QRCode";
 
 const PanCard = (formData: any) => {
   return (
-    <div className="flex justify-center items-center min-h-screen p-10 font-sans">
-      <div className="w-[630px] h-[400px] bg-gradient-to-br from-[#77CDF4] to-[#CE9ADE] rounded-lg shadow-md text-black p-6 relative">
+    <div className="flex justify-center items-center min-h-600vh font-sans">
+      {/* <div className="w-[630px] h-[400px] bg-gradient-to-br from-[#80959e] to-[#CE9ADE] rounded-lg shadow-md text-black p-6 relative"> */}
+      <div className="w-[630px] h-[400px] bg-gradient-to-br from-[#80959e] to-[#CE9ADE] rounded-lg shadow-md text-black p-6 relative">
+
         <Header />
         <div className="w-[50%] grid grid-cols-2 gap-2 text-blue-950">
           <PersonalInfo
