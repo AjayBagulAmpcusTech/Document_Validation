@@ -310,7 +310,6 @@ const performOCR = async (
       dateOfBirth: "1992-11-22",
       gender: "M",
       address: "123 Main Street, Bangalore, Karnataka - 560001",
-      fatherName: "Kumar SINGH",
     },
     pan: {
       panNumber: "ABCDE1234F",

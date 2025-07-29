@@ -47,7 +47,9 @@ export default function RightSideAadhaar({
           <p>
             <strong>पता / Address:</strong>
           </p>
-          <p className="text-wrap">123 Street Name, City, State - 000000 lo</p>
+          <p className="text-wrap">
+            123 Main Street, Bangalore, Karnataka - 560001
+          </p>
         </div>
 
         {/* QR Code */}
