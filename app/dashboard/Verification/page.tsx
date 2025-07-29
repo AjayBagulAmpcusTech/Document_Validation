@@ -956,9 +956,8 @@ function Verification() {
                         {currentConfig.fields.map((field) => (
                           <div
                             key={field.name}
-                            className={`${
-                              field.type === "textarea" ? "md:col-span-2" : ""
-                            } flex flex-col`}
+                            className={`${field.type === "textarea" ? "md:col-span-2" : ""
+                              } flex flex-col`}
                             ref={(el) => {
                               fieldRefs.current[field.name] = el;
                             }}
@@ -967,8 +966,8 @@ function Verification() {
                               <div className="space-y-4 mt-9">
                                 {/* For Aadhaar, PAN, and UAN - inline layout */}
                                 {selectedDocument === "aadhaar" ||
-                                selectedDocument === "pan" ||
-                                selectedDocument === "un" ? (
+                                  selectedDocument === "pan" ||
+                                  selectedDocument === "un" ? (
                                   <div className="flex items-start space-x-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                                     <input
                                       type="checkbox"
@@ -1072,17 +1071,15 @@ function Verification() {
                                             e.target.value
                                           )
                                         }
-                                        className={`w-full ${
-                                          errors[field.name]
-                                            ? "border-red-500 focus:border-red-500 ring-red-200"
-                                            : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                        } text-base p-4 h-14 transition-all duration-200 pr-12 border-2 ${
-                                          formData[field.name]
+                                        className={`w-full ${errors[field.name]
+                                          ? "border-red-500 focus:border-red-500 ring-red-200"
+                                          : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                          } text-base p-4 h-14 transition-all duration-200 pr-12 border-2 ${formData[field.name]
                                             ? extractedOCRData[field.name]
                                               ? "bg-blue-50 border-blue-300"
                                               : "bg-green-50 border-green-300"
                                             : ""
-                                        }`}
+                                          }`}
                                       />
                                       <CalendarDays className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none" />
                                       {extractedOCRData[field.name] && (
@@ -1104,17 +1101,15 @@ function Verification() {
                                             e.target.value
                                           )
                                         }
-                                        className={`w-full ${
-                                          errors[field.name]
-                                            ? "border-red-500 focus:border-red-500 ring-red-200"
-                                            : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                        } text-base p-4 h-14 transition-all duration-200 border-2 ${
-                                          formData[field.name]
+                                        className={`w-full ${errors[field.name]
+                                          ? "border-red-500 focus:border-red-500 ring-red-200"
+                                          : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                          } text-base p-4 h-14 transition-all duration-200 border-2 ${formData[field.name]
                                             ? extractedOCRData[field.name]
                                               ? "bg-blue-50 border-blue-300"
                                               : "bg-green-50 border-green-300"
                                             : ""
-                                        }`}
+                                          }`}
                                         maxLength={field.maxLength}
                                       />
                                       {extractedOCRData[field.name] && (
@@ -1175,11 +1170,10 @@ function Verification() {
                                     setOtpValue(e.target.value);
                                     if (otpError) setOtpError("");
                                   }}
-                                  className={`w-full max-w-xs ${
-                                    otpError
-                                      ? "border-red-500 focus:border-red-500 ring-red-200"
-                                      : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
-                                  } text-base p-4 h-14 transition-all duration-200 border-2 text-center font-mono text-lg tracking-widest`}
+                                  className={`w-full max-w-xs ${otpError
+                                    ? "border-red-500 focus:border-red-500 ring-red-200"
+                                    : "border-gray-300 hover:border-gray-400 focus:border-blue-500 focus:ring-blue-200"
+                                    } text-base p-4 h-14 transition-all duration-200 border-2 text-center font-mono text-lg tracking-widest`}
                                   maxLength={6}
                                 />
                                 <p className="text-xs text-gray-500 mt-2">
@@ -1230,10 +1224,10 @@ function Verification() {
                           {selectedDocument === "aadhaar" && !otpSent
                             ? "Send OTP"
                             : selectedDocument === "aadhaar" && otpSent
-                            ? isOtpVerifying
-                              ? "Verifying OTP..."
-                              : "Verify OTP & Document"
-                            : "Verify Document"}
+                              ? isOtpVerifying
+                                ? "Verifying OTP..."
+                                : "Verify OTP & Document"
+                              : "Verify Document"}
                         </Button>
                       </div>
                     </CardContent>
@@ -1391,8 +1385,8 @@ function Verification() {
                               {failureReason === "server"
                                 ? "Verification failed due to a server issue. Please try again later."
                                 : "We couldn't verify your " +
-                                  currentConfig.name +
-                                  ". Please check the information and try again."}
+                                currentConfig.name +
+                                ". Please check the information and try again."}
                             </p>
                           </div>
                         </>
