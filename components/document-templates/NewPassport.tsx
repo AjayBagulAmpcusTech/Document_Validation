@@ -48,7 +48,7 @@ const NewPassport = (formData: any) => {
                 <div className="info-right">
                   <div className="passport-section">
                     <span className="label">पासपोर्ट सं./Passport No.</span>
-                    <div className="value passport-no">P2251480</div>
+                    <div className="value passport-no">A1234567</div>
                   </div>
                 </div>
               </div>
@@ -57,7 +57,7 @@ const NewPassport = (formData: any) => {
                   <span className="hindi">उपनाम</span>
                   <span className="english">Surname</span>
                 </div>
-                <div className="field-value">{lastName || "SHINDE"}</div>
+                <div className="field-value">{lastName || "SINGH"}</div>
                 <div className="field-line"></div>
               </div>
 
@@ -66,9 +66,7 @@ const NewPassport = (formData: any) => {
                   <span className="hindi">दिया गया नाम</span>
                   <span className="english">Given Name(s)</span>
                 </div>
-                <div className="field-value">
-                  {firstName || "SANDESH RAMDAS"}
-                </div>
+                <div className="field-value">{firstName || "RAJESH KUMAR"}</div>
                 <div className="field-line"></div>
               </div>
 
@@ -95,7 +93,7 @@ const NewPassport = (formData: any) => {
                     <span className="english">Date of Birth</span>
                   </div>
                   <div className="field-value">
-                    {data?.dateOfExpiry || "03/06/1990"}
+                    {data?.dateOfExpiry || "15/05/1990"}
                   </div>
                   <div className="field-line"></div>
                 </div>
@@ -146,14 +144,14 @@ const NewPassport = (formData: any) => {
                   <span className="hindi">जारी करने की तिथि</span>
                   <span className="english">Date of Issue</span>
                 </div>
-                <div className="field-value">31/08/2016</div>
+                <div className="field-value">15/05/2020</div>
               </div>
               <div className="detail-field expiry-date">
                 <div className="field-label">
                   <span className="hindi">समाप्ति की तिथि</span>
                   <span className="english">Date of Expiry</span>
                 </div>
-                <div className="field-value">30/08/2026</div>
+                <div className="field-value">05/05/2030</div>
               </div>
             </div>
           </div>
@@ -162,10 +160,10 @@ const NewPassport = (formData: any) => {
         {/* Machine Readable Zone */}
         <div className="mrz-section">
           <div className="mrz-line">
-            P&lt;INDSHINDE&lt;&lt;SANDESH&lt;RAMDAS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+            P&lt;INDSINGH&lt;&lt;RAJESH&lt;KUMAR&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
           </div>
           <div className="mrz-line">
-            P2251480&lt;1IND9006038M2608307&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;8
+            A1234567&lt;1IND9006038M2608307&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;8
           </div>
         </div>
 

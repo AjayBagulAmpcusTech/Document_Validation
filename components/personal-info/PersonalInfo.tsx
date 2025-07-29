@@ -14,24 +14,23 @@ export default function PersonalInfo({
       <div
         className="w-[120px] h-[140px] bg-gray-300 border border-gray-500 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('/aadhaarProfile.jpg')",
+          backgroundImage: "url('/aadhaarProfile.jpg')",
         }}
       ></div>
       <p className="my-2">
         <strong>नाम / Name</strong>
         <br />
-        {name || "APPLICANT NAME"}
+        {name || "RAJESH KUMAR SINGH"}
       </p>
       <p className="my-2">
         <strong>पिता का नाम / Father's Name</strong>
         <br />
-        {fatherName || "FATHER'S NAME"}
+        {fatherName || "SURESH KUMAR SINGH"}
       </p>
       <p className="my-2">
         <strong>जन्म की तारीख / Date of Birth</strong>
         <br />
-        {dob || "01/06/1995"}
+        {dob || "15/05/1995"}
       </p>
     </div>
   );
